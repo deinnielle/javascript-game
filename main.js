@@ -3,7 +3,6 @@ let character;
 let bgImage;
 let boatImage;
 let enemies = [];
-// const randomEmenies = Math.floor(Math.random() * 10 + 1);
 
 // runs before setup function
 function preload() {
@@ -16,7 +15,6 @@ function setup() {
   let myCanvas = createCanvas(1024, 576);
   myCanvas.parent('myContainer');
   character = new Character();
-  // enemy = new Enemy();
 }
 
 function keyPressed() {
@@ -35,6 +33,7 @@ function draw() {
       enemy.show();
       enemy.down();
       enemy.move();
+
       if (enemy.y > 1500) {
         enemies.splice(enemy, 1);
       }

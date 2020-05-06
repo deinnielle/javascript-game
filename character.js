@@ -14,6 +14,7 @@ class Character {
   left() {
     this.x += -8;
   }
+
   right() {
     this.x += 8;
   }
