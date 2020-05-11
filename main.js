@@ -3,12 +3,16 @@ let character;
 let bgImage;
 let boatImage;
 let enemies = [];
+let sideEnemies = [];
+const sideEnemyPosition = [-50, 1074];
+const distance = 30;
 
 // runs before setup function
 function preload() {
   bgImage = loadImage('/img/bg.jpg');
   boatImage = loadImage('/img/boat.png');
   fishImage = loadImage('/img/fish.jpg');
+  birdImage = loadImage('/img/bird.jpg');
 }
 
 function setup() {
@@ -28,21 +32,63 @@ function draw() {
   character.show();
   character.move();
 
-  if (enemies.length !== 0) {
-    enemies.forEach(enemy => {
-      enemy.show();
-      enemy.down();
-      enemy.move();
-
-      if (enemy.y > 1500) {
-        enemies.splice(enemy, 1);
-      }
-    });
-  }
-
   if (enemies.length === 0) {
     for (let i = 0; i < randomEmenies(); i++) {
-      enemies.push(new Enemy());
+      enemies.push(new TopEnemy());
+    }
+  }
+
+  if (sideEnemies.length === 0) {
+    for (let i = 0; i < randomEmenies(); i++) {
+      let position = Math.floor(Math.random() * 2);
+      sideEnemies.push(new SideEnemy(sideEnemyPosition[position], position));
+    }
+  }
+
+  if (enemies.length !== 0) {
+    for (let i = 0; i < enemies.length; i++) {
+      enemies[i].show();
+      enemies[i].down();
+      // console.log(Math.abs(enemies[i].y - character.y));
+      // console.log(character.y);
+
+      if (
+        Math.abs(enemies[i].y - character.y) < distance &&
+        Math.abs(enemies[i].x - character.x) < distance
+      ) {
+        gameOver();
+      }
+
+      if (enemies[i].y > 700) {
+        enemies.splice(i, 1);
+      }
+
+      // console.log(Math.abs(enemies[i].x - character.x));
+    }
+  }
+
+  if (sideEnemies.length !== 0) {
+    for (let i = 0; i < sideEnemies.length; i++) {
+      sideEnemies[i].show();
+
+      if (sideEnemies[i].direction === 0) {
+        sideEnemies[i].right();
+      } else {
+        sideEnemies[i].left();
+      }
+
+      if (
+        Math.abs(sideEnemies[i].y - character.y) < distance &&
+        Math.abs(sideEnemies[i].x - character.x) < distance
+      ) {
+        gameOver();
+      }
+
+      if (sideEnemies[i].direction === 0 && sideEnemies[i].x > 1100) {
+        sideEnemies.splice(i, 1);
+      } else if (sideEnemies[i].direction === 1 && sideEnemies[i].x < -100) {
+        sideEnemies.splice(i, 1);
+      }
     }
   }
 
@@ -57,4 +103,8 @@ function draw() {
 
 function randomEmenies() {
   return Math.floor(Math.random() * 8 + 2);
+}
+
+function gameOver() {
+  noLoop();
 }
