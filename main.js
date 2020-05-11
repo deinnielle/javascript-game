@@ -7,7 +7,6 @@ let sideEnemies = [];
 const sideEnemyPosition = [-50, 1074];
 const distance = 30;
 
-// runs before setup function
 function preload() {
   bgImage = loadImage('/img/bg.jpg');
   boatImage = loadImage('/img/boat.png');
@@ -49,8 +48,6 @@ function draw() {
     for (let i = 0; i < enemies.length; i++) {
       enemies[i].show();
       enemies[i].down();
-      // console.log(Math.abs(enemies[i].y - character.y));
-      // console.log(character.y);
 
       if (
         Math.abs(enemies[i].y - character.y) < distance &&
@@ -62,8 +59,6 @@ function draw() {
       if (enemies[i].y > 700) {
         enemies.splice(i, 1);
       }
-
-      // console.log(Math.abs(enemies[i].x - character.x));
     }
   }
 

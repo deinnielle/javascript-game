@@ -4,8 +4,7 @@ class TopEnemy {
     this.x = Math.floor(Math.random() * 1024 + 0);
     this.y = -this.r;
     this.v = 0;
-    // this.rv = Math.random() * 2 + 1;
-    this.rv = 1;
+    this.rv = Math.random() * 2 + 1;
   }
 
   down() {
