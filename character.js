@@ -8,15 +8,15 @@ class Character {
   }
 
   jump() {
-    this.vy = -25;
+    this.vy = -20;
   }
 
   left() {
-    this.x += -8;
+    this.x += -5;
   }
 
   right() {
-    this.x += 8;
+    this.x += 5;
   }
 
   stop(y) {
@@ -24,7 +24,7 @@ class Character {
     this.gravity = 0;
   }
 
-  setGravity() {
+  resetGravity() {
     this.gravity = 2;
   }
 

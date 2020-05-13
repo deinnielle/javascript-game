@@ -10,7 +10,8 @@ const sideEnemyRandomYPosition = [-50, 1074];
 let platforms = [];
 const platformRandomXPosition = [100, 300, 500, 700, 900];
 const platformRandomYPosition = [450, 350, 250, 150];
-const distance = 30;
+const distanceEnemies = 30;
+const distancePlatforms = 40;
 
 function preload() {
   bgImage = loadImage('/img/bg.jpg');
@@ -53,12 +54,12 @@ function platformsDraw() {
     for (let i = 0; i < platforms.length; i++) {
       platforms[i].show();
       if (
-        Math.abs(character.y - platforms[i].y) < distance &&
-        Math.abs(character.x - platforms[i].x) < distance
+        Math.abs(character.y - platforms[i].y) < distancePlatforms &&
+        Math.abs(character.x - platforms[i].x) < distancePlatforms
       ) {
         character.stop(platforms[i].y);
       } else {
-        character.setGravity();
+        character.resetGravity();
       }
     }
   }
@@ -93,8 +94,8 @@ function topEnemiesDraw() {
       topEnemies[i].down();
 
       if (
-        Math.abs(topEnemies[i].y - character.y) < distance &&
-        Math.abs(topEnemies[i].x - character.x) < distance
+        Math.abs(topEnemies[i].y - character.y) < distanceEnemies &&
+        Math.abs(topEnemies[i].x - character.x) < distanceEnemies
       ) {
         gameOver();
       }
@@ -127,8 +128,8 @@ function sideEnemiesDraw() {
       }
 
       if (
-        Math.abs(sideEnemies[i].y - character.y) < distance &&
-        Math.abs(sideEnemies[i].x - character.x) < distance
+        Math.abs(sideEnemies[i].y - character.y) < distanceEnemies &&
+        Math.abs(sideEnemies[i].x - character.x) < distanceEnemies
       ) {
         gameOver();
       }
