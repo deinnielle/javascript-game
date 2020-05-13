@@ -1,8 +1,8 @@
 class Platform {
-  constructor() {
+  constructor(x, y) {
     this.r = 50;
-    this.x = 500;
-    this.y = 450;
+    this.x = x;
+    this.y = y;
   }
 
   show() {

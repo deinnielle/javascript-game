@@ -1,11 +1,15 @@
-let bg;
 let character;
 let platform;
 let bgImage;
 let boatImage;
-let enemies = [];
+let pirate;
+let fire;
+let topEnemies = [];
 let sideEnemies = [];
-const sideEnemyPosition = [-50, 1074];
+const sideEnemyRandomYPosition = [-50, 1074];
+let platforms = [];
+const platformRandomXPosition = [100, 300, 500, 700, 900];
+const platformRandomYPosition = [450, 350, 250, 150];
 const distance = 30;
 
 function preload() {
@@ -19,58 +23,96 @@ function setup() {
   let myCanvas = createCanvas(1024, 576);
   myCanvas.parent('myContainer');
   character = new Character();
-  platform = new Platform();
-}
-
-function keyPressed() {
-  if (keyCode == 38) {
-    character.jump();
-  }
 }
 
 function draw() {
   background(bgImage);
   character.show();
   character.move();
-  platform.show();
+  platformsDraw();
+  sideEnemiesDraw();
+  topEnemiesDraw();
+  moveCharacter();
+}
 
-  if (
-    Math.abs(character.y - platform.y) < distance &&
-    Math.abs(character.x - platform.x) < distance
-  ) {
-    character.stop(platform.y);
-  } else {
-    character.setGravity();
-  }
-
-  if (enemies.length === 0) {
-    for (let i = 0; i < randomEmenies(); i++) {
-      enemies.push(new TopEnemy());
+function platformsDraw() {
+  if (platforms.length === 0) {
+    for (let i = 0; i < randomObjects(); i++) {
+      let platformXPosition = Math.floor(Math.random() * 4);
+      let platformYPosition = Math.floor(Math.random() * 3);
+      platforms.push(
+        new Platform(
+          platformRandomXPosition[platformXPosition],
+          platformRandomYPosition[platformYPosition]
+        )
+      );
     }
   }
 
-  if (sideEnemies.length === 0) {
-    for (let i = 0; i < randomEmenies(); i++) {
-      let position = Math.floor(Math.random() * 2);
-      sideEnemies.push(new SideEnemy(sideEnemyPosition[position], position));
+  if (platforms.length !== 0) {
+    for (let i = 0; i < platforms.length; i++) {
+      platforms[i].show();
+      if (
+        Math.abs(character.y - platforms[i].y) < distance &&
+        Math.abs(character.x - platforms[i].x) < distance
+      ) {
+        character.stop(platforms[i].y);
+      } else {
+        character.setGravity();
+      }
+    }
+  }
+}
+
+function keyPressed() {
+  if (keyIsDown('38')) {
+    character.jump();
+  }
+}
+
+function moveCharacter() {
+  if (keyIsDown('37')) {
+    character.left();
+  }
+
+  if (keyIsDown('39')) {
+    character.right();
+  }
+}
+
+function topEnemiesDraw() {
+  if (topEnemies.length === 0) {
+    for (let i = 0; i < randomObjects(); i++) {
+      topEnemies.push(new TopEnemy());
     }
   }
 
-  if (enemies.length !== 0) {
-    for (let i = 0; i < enemies.length; i++) {
-      enemies[i].show();
-      enemies[i].down();
+  if (topEnemies.length !== 0) {
+    for (let i = 0; i < topEnemies.length; i++) {
+      topEnemies[i].show();
+      topEnemies[i].down();
 
       if (
-        Math.abs(enemies[i].y - character.y) < distance &&
-        Math.abs(enemies[i].x - character.x) < distance
+        Math.abs(topEnemies[i].y - character.y) < distance &&
+        Math.abs(topEnemies[i].x - character.x) < distance
       ) {
         gameOver();
       }
 
-      if (enemies[i].y > 700) {
-        enemies.splice(i, 1);
+      if (topEnemies[i].y > 700) {
+        topEnemies.splice(i, 1);
       }
+    }
+  }
+}
+
+function sideEnemiesDraw() {
+  if (sideEnemies.length === 0) {
+    for (let i = 0; i < randomObjects(); i++) {
+      let direction = Math.floor(Math.random() * 2);
+      sideEnemies.push(
+        new SideEnemy(sideEnemyRandomYPosition[direction], direction)
+      );
     }
   }
 
@@ -98,17 +140,9 @@ function draw() {
       }
     }
   }
-
-  if (keyIsDown('37')) {
-    character.left();
-  }
-
-  if (keyIsDown('39')) {
-    character.right();
-  }
 }
 
-function randomEmenies() {
+function randomObjects() {
   return Math.floor(Math.random() * 8 + 2);
 }
 
