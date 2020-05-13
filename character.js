@@ -20,7 +20,7 @@ class Character {
   }
 
   stop(y) {
-    this.y = y - 45;
+    this.y = y - 50;
     this.gravity = 0;
   }
 
