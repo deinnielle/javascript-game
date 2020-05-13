@@ -8,15 +8,15 @@ const sideEnemyPosition = [-50, 1074];
 const distance = 30;
 
 function preload() {
-  bgImage = loadImage('/img/bg.jpg');
-  boatImage = loadImage('/img/boat.png');
-  fishImage = loadImage('/img/fish.jpg');
-  birdImage = loadImage('/img/bird.jpg');
+  bgImage = loadImage("/img/bg.jpg");
+  boatImage = loadImage("/img/boat.png");
+  pirate = loadImage("/img/pirate.png");
+  fire = loadImage("/img/fire.gif");
 }
 
 function setup() {
   let myCanvas = createCanvas(1024, 576);
-  myCanvas.parent('myContainer');
+  myCanvas.parent("myContainer");
   character = new Character();
 }
 
@@ -87,11 +87,11 @@ function draw() {
     }
   }
 
-  if (keyIsDown('37')) {
+  if (keyIsDown("37")) {
     character.left();
   }
 
-  if (keyIsDown('39')) {
+  if (keyIsDown("39")) {
     character.right();
   }
 }

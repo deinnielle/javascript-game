@@ -12,6 +12,6 @@ class TopEnemy {
   }
 
   show() {
-    image(birdImage, this.x, this.y, this.r, this.r);
+    image(fire, this.x, this.y, this.r, this.r);
   }
 }

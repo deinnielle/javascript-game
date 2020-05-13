@@ -17,6 +17,6 @@ class SideEnemy {
   }
 
   show() {
-    image(fishImage, this.x, this.y, this.r, this.r);
+    image(pirate, this.x, 450, 100, 100);
   }
 }
