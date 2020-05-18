@@ -8,8 +8,10 @@ let topEnemies = [];
 let sideEnemies = [];
 const sideEnemyRandomYPosition = [-50, 1074];
 let platforms = [];
-const platformRandomXPosition = [100, 300, 500, 700, 900];
-const platformRandomYPosition = [450, 350, 250, 150];
+const platformRandomXPosition = [100, 100, 100, 100, 100];
+// const platformRandomXPosition = [100, 300, 500, 700, 900];
+// const platformRandomYPosition = [450, 350, 250, 150];
+const platformRandomYPosition = [300, 300, 300, 300];
 const distanceEnemies = 30;
 const distancePlatforms = 40;
 
@@ -58,10 +60,8 @@ function platformsDraw() {
         Math.abs(character.x - platforms[i].x) < distancePlatforms
       ) {
         character.stop(platforms[i].y);
-        console.log(character.y);
       } else {
         character.resetGravity();
-        console.log(character.y);
       }
     }
   }
