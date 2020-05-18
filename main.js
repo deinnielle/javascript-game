@@ -58,8 +58,10 @@ function platformsDraw() {
         Math.abs(character.x - platforms[i].x) < distancePlatforms
       ) {
         character.stop(platforms[i].y);
+        console.log(character.y);
       } else {
         character.resetGravity();
+        console.log(character.y);
       }
     }
   }
