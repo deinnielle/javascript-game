@@ -28,6 +28,12 @@ function setup() {
   character = new Character();
 }
 
+// TODO
+// Character only jump 2 times
+// Score board (Save in local storage?)
+// Game Over Screen
+// Play Screen
+
 function draw() {
   background(bgImage);
   character.show();

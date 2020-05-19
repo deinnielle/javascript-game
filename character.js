@@ -4,7 +4,7 @@ class Character {
     this.x = 500;
     this.y = height - this.r;
     this.vy = 0;
-    this.gravity = 5;
+    this.gravity = 10;
   }
 
   jump() {
