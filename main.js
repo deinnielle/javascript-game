@@ -13,6 +13,7 @@ const platformRandomYPosition = [400, 300, 200, 100];
 const distanceEnemies = 30;
 const distancePlatforms = 50;
 let score = 0;
+let jumps = [];
 
 function preload() {
   bgImage = loadImage('/img/bg.jpg');
@@ -42,6 +43,7 @@ function draw() {
   topEnemiesDraw();
   moveCharacter();
   console.log(`Score: ${score - 2}`);
+  console.log(jumps);
 }
 
 function platformsDraw() {
@@ -73,17 +75,24 @@ function platformsDraw() {
 
 function keyPressed() {
   if (keyIsDown('38')) {
-    character.jump();
+    if (jumps.length <= 2) {
+      character.jump();
+      jumps.push(1);
+    } else {
+      jumps = [];
+    }
   }
 }
 
 function moveCharacter() {
   if (keyIsDown('37')) {
     character.left();
+    jumps = [];
   }
 
   if (keyIsDown('39')) {
     character.right();
+    jumps = [];
   }
 }
 
