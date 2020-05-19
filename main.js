@@ -12,8 +12,7 @@ const platformRandomXPosition = [100, 300, 500, 700, 800, 900];
 const platformRandomYPosition = [400, 300, 200, 100];
 const distanceEnemies = 30;
 const distancePlatforms = 50;
-let onPlatform = false;
-let currentPlatform;
+let score = 0;
 
 function preload() {
   bgImage = loadImage('/img/bg.jpg');
@@ -42,6 +41,7 @@ function draw() {
   sideEnemiesDraw();
   topEnemiesDraw();
   moveCharacter();
+  console.log(`Score: ${score - 2}`);
 }
 
 function platformsDraw() {
@@ -65,7 +65,7 @@ function platformsDraw() {
         Math.abs(character.y - platforms[i].y) < distancePlatforms &&
         Math.abs(character.x - platforms[i].x) < distancePlatforms
       ) {
-        character.stop(platforms[i].y - 50);
+        character.stop(platforms[i].y - distancePlatforms);
       }
     }
   }
@@ -89,6 +89,7 @@ function moveCharacter() {
 
 function topEnemiesDraw() {
   if (topEnemies.length === 0) {
+    score++;
     for (let i = 0; i < randomObjects(); i++) {
       topEnemies.push(new TopEnemy());
     }
@@ -115,6 +116,7 @@ function topEnemiesDraw() {
 
 function sideEnemiesDraw() {
   if (sideEnemies.length === 0) {
+    score++;
     for (let i = 0; i < randomObjects(); i++) {
       let direction = Math.floor(Math.random() * 2);
       sideEnemies.push(
