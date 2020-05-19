@@ -4,11 +4,11 @@ class Character {
     this.x = 500;
     this.y = height - this.r;
     this.vy = 0;
-    this.gravity = 2;
+    this.gravity = 5;
   }
 
   jump() {
-    this.vy = -20;
+    this.vy = -30;
   }
 
   left() {
@@ -20,17 +20,14 @@ class Character {
   }
 
   stop(y) {
-    this.y = y - 50;
-    this.gravity = 0;
+    this.y = y;
   }
 
-  resetGravity() {
-    this.gravity = 2;
-  }
-
-  move() {
+  update() {
     this.y += this.vy;
-    this.vy += this.gravity;
+    if (this.vy <= 0) {
+      this.vy += this.gravity;
+    }
     this.y = constrain(this.y, 0, height - this.r);
     this.x = constrain(this.x, 0, width - (this.r + 6));
   }

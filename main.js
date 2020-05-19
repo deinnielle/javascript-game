@@ -8,14 +8,10 @@ let topEnemies = [];
 let sideEnemies = [];
 const sideEnemyRandomYPosition = [-50, 1074];
 let platforms = [];
-// this.x = 500;
-// this.y = 450;
-// const platformRandomXPosition = [500, 500, 500, 500, 500];
-const platformRandomXPosition = [100, 300, 500];
-const platformRandomYPosition = [450, 350, 250];
-// const platformRandomYPosition = [450, 450, 450, 450];
+const platformRandomXPosition = [100, 300, 500, 700, 800, 900];
+const platformRandomYPosition = [400, 300, 200, 100];
 const distanceEnemies = 30;
-const distancePlatforms = 30;
+const distancePlatforms = 50;
 let onPlatform = false;
 let currentPlatform;
 
@@ -35,20 +31,23 @@ function setup() {
 function draw() {
   background(bgImage);
   character.show();
-  character.move();
+  character.update();
   platformsDraw();
-  // sideEnemiesDraw();
-  // topEnemiesDraw();
+  sideEnemiesDraw();
+  topEnemiesDraw();
   moveCharacter();
 }
 
 function platformsDraw() {
   if (platforms.length === 0) {
-    for (let i = 0; i < 4; i++) {
-      // let platformXPosition = Math.floor(Math.random() * 4);
-      // let platformYPosition = Math.floor(Math.random() * 3);
+    for (let i = 0; i < randomObjects(); i++) {
+      let platformXPosition = Math.floor(Math.random() * 5);
+      let platformYPosition = Math.floor(Math.random() * 3);
       platforms.push(
-        new Platform(platformRandomXPosition[i], platformRandomYPosition[i])
+        new Platform(
+          platformRandomXPosition[platformXPosition],
+          platformRandomYPosition[platformYPosition]
+        )
       );
     }
   }
@@ -60,28 +59,7 @@ function platformsDraw() {
         Math.abs(character.y - platforms[i].y) < distancePlatforms &&
         Math.abs(character.x - platforms[i].x) < distancePlatforms
       ) {
-        character.stop(platforms[i].y);
-        currentPlatform = platforms[i];
-        onPlatform = true;
-        // console.log(
-        //   Math.abs(character.y - currentPlatform.y) > 40 &&
-        //     Math.abs(character.x - currentPlatform.x) > 40
-        // );
-      }
-      // } else {
-      //   character.resetGravity();
-      // }
-    }
-
-    if (onPlatform) {
-      if (
-        Math.abs(character.y - currentPlatform.y) > distancePlatforms &&
-        Math.abs(character.x - currentPlatform.x) > distancePlatforms
-      ) {
-        console.log(currentPlatform.x);
-
-        character.resetGravity();
-        onPlatform = false;
+        character.stop(platforms[i].y - 50);
       }
     }
   }
