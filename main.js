@@ -27,6 +27,7 @@ function setup() {
   let myCanvas = createCanvas(1024, 576);
   myCanvas.parent("myContainer");
   character = new Character();
+  console.log(highScore());
 }
 
 // TODO
@@ -169,5 +170,19 @@ function topEnemiesDraw() {
         topEnemies.splice(i, 1);
       }
     }
+  }
+}
+
+function highScore() {
+  if (sessionStorage.length !== 0) {
+    let sessionStorageSorted = [];
+    for (let i = 0; i < sessionStorage.length; i++) {
+      sessionStorageSorted[i] = sessionStorage.getItem(sessionStorage.key(i));
+    }
+    return sessionStorageSorted
+      .sort((a, b) => {
+        return b - a;
+      })
+      .splice(0, 3);
   }
 }
