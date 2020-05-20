@@ -177,8 +177,10 @@ function highScore() {
     for (let i = 0; i < sessionStorage.length; i++) {
       sessionStorageSorted[i] = sessionStorage.getItem(sessionStorage.key(i));
     }
-    return sessionStorageSorted.sort((a, b) => {
-      return b - a;
-    });
+    return sessionStorageSorted
+      .sort((a, b) => {
+        return b - a;
+      })
+      .splice(0, 3);
   }
 }
