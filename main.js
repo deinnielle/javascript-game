@@ -26,6 +26,7 @@ function setup() {
   let myCanvas = createCanvas(1024, 576);
   myCanvas.parent('myContainer');
   character = new Character();
+  console.log(highScore());
 }
 
 // TODO
@@ -42,7 +43,7 @@ function draw() {
   sideEnemiesDraw();
   topEnemiesDraw();
   moveCharacter();
-  console.log(`Score: ${score - 2}`);
+  text('SCORE: ' + (score - 2), 10, 20);
 }
 
 function platformsDraw() {
@@ -164,5 +165,18 @@ function randomObjects() {
 }
 
 function gameOver() {
+  if (score - 2 > 0) {
+    sessionStorage.setItem(Date.now(), score - 2);
+  }
   noLoop();
+}
+
+function highScore() {
+  if (sessionStorage.length !== 0) {
+    let sessionStorageSorted = [];
+    for (let i = 0; i < sessionStorage.length; i++) {
+      sessionStorageSorted[i] = localStorage.getItem(localStorage.key(i));
+    }
+    return sessionStorageSorted.sort();
+  }
 }
