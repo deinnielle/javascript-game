@@ -43,7 +43,6 @@ function draw() {
   topEnemiesDraw();
   moveCharacter();
   console.log(`Score: ${score - 2}`);
-  console.log(jumps);
 }
 
 function platformsDraw() {
