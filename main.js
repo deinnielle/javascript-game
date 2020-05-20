@@ -175,8 +175,10 @@ function highScore() {
   if (sessionStorage.length !== 0) {
     let sessionStorageSorted = [];
     for (let i = 0; i < sessionStorage.length; i++) {
-      sessionStorageSorted[i] = localStorage.getItem(localStorage.key(i));
+      sessionStorageSorted[i] = sessionStorage.getItem(sessionStorage.key(i));
     }
-    return sessionStorageSorted.sort();
+    return sessionStorageSorted.sort((a, b) => {
+      return b - a;
+    });
   }
 }
