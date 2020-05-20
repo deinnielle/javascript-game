@@ -14,17 +14,18 @@ const distanceEnemies = 30;
 const distancePlatforms = 50;
 let score = 0;
 let jumps = [];
+let gameState = "START";
 
 function preload() {
-  bgImage = loadImage('/img/bg.jpg');
-  boatImage = loadImage('/img/boat.png');
-  pirate = loadImage('/img/pirate.png');
-  fire = loadImage('/img/fire.gif');
+  bgImage = loadImage("/img/bg.jpg");
+  boatImage = loadImage("/img/boat.png");
+  pirate = loadImage("/img/pirate.png");
+  fire = loadImage("/img/fire.gif");
 }
 
 function setup() {
   let myCanvas = createCanvas(1024, 576);
-  myCanvas.parent('myContainer');
+  myCanvas.parent("myContainer");
   character = new Character();
 }
 
@@ -35,14 +36,22 @@ function setup() {
 // Play Screen
 
 function draw() {
+  console.log(gameState);
+  gameMode();
+
   background(bgImage);
-  character.show();
-  character.update();
-  platformsDraw();
-  sideEnemiesDraw();
-  topEnemiesDraw();
-  moveCharacter();
-  console.log(`Score: ${score - 2}`);
+  if (gameState == "START") {
+    startGame();
+  }
+
+  if (gameState == "GAMEON") {
+    gameOn();
+  }
+
+  if (gameState == "GAMEOVER") {
+    gameOver();
+    reset();
+  }
 }
 
 function platformsDraw() {
@@ -73,7 +82,7 @@ function platformsDraw() {
 }
 
 function keyPressed() {
-  if (keyIsDown('38')) {
+  if (keyIsDown("38")) {
     if (jumps.length <= 2) {
       character.jump();
       jumps.push(1);
@@ -84,41 +93,14 @@ function keyPressed() {
 }
 
 function moveCharacter() {
-  if (keyIsDown('37')) {
+  if (keyIsDown("37")) {
     character.left();
     jumps = [];
   }
 
-  if (keyIsDown('39')) {
+  if (keyIsDown("39")) {
     character.right();
     jumps = [];
-  }
-}
-
-function topEnemiesDraw() {
-  if (topEnemies.length === 0) {
-    score++;
-    for (let i = 0; i < randomObjects(); i++) {
-      topEnemies.push(new TopEnemy());
-    }
-  }
-
-  if (topEnemies.length !== 0) {
-    for (let i = 0; i < topEnemies.length; i++) {
-      topEnemies[i].show();
-      topEnemies[i].down();
-
-      if (
-        Math.abs(topEnemies[i].y - character.y) < distanceEnemies &&
-        Math.abs(topEnemies[i].x - character.x) < distanceEnemies
-      ) {
-        gameOver();
-      }
-
-      if (topEnemies[i].y > 700) {
-        topEnemies.splice(i, 1);
-      }
-    }
   }
 }
 
@@ -163,6 +145,29 @@ function randomObjects() {
   return Math.floor(Math.random() * 8 + 2);
 }
 
-function gameOver() {
-  noLoop();
+function topEnemiesDraw() {
+  if (topEnemies.length === 0) {
+    score++;
+    for (let i = 0; i < randomObjects(); i++) {
+      topEnemies.push(new TopEnemy());
+    }
+  }
+
+  if (topEnemies.length !== 0) {
+    for (let i = 0; i < topEnemies.length; i++) {
+      topEnemies[i].show();
+      topEnemies[i].down();
+
+      if (
+        Math.abs(topEnemies[i].y - character.y) < distanceEnemies &&
+        Math.abs(topEnemies[i].x - character.x) < distanceEnemies
+      ) {
+        gameOver();
+      }
+
+      if (topEnemies[i].y > 700) {
+        topEnemies.splice(i, 1);
+      }
+    }
+  }
 }
