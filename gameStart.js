@@ -13,11 +13,15 @@ function gameOn() {
   sideEnemiesDraw();
   topEnemiesDraw();
   moveCharacter();
-  console.log(`Score: ${score - 2}`);
+  text("SCORE: " + (score - 2), 40, 20);
+  console.log(highScore());
 }
 
 function gameOver() {
   gameState = "GAMEOVER";
+  if (score - 2 > 0) {
+    sessionStorage.setItem(Date.now(), score - 2);
+  }
   fill(255);
   textAlign(CENTER);
   text("GAME OVER", width / 2, height / 2);

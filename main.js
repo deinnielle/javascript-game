@@ -27,20 +27,18 @@ function setup() {
   let myCanvas = createCanvas(1024, 576);
   myCanvas.parent("myContainer");
   character = new Character();
-  console.log(highScore());
 }
 
 // TODO
-// Character only jump 2 times
-// Score board (Save in local storage?)
-// Game Over Screen
-// Play Screen
+// Style start and end screen
+// platform and fire images
+// levels
+// invert character
 
 function draw() {
-  console.log(gameState);
+  background(bgImage);
   gameMode();
 
-  background(bgImage);
   if (gameState == "START") {
     startGame();
   }
