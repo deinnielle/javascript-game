@@ -14,18 +14,19 @@ const distanceEnemies = 30;
 const distancePlatforms = 50;
 let score = 0;
 let jumps = [];
-let gameState = "START";
+let gameState = 'START';
+let levels = 0;
 
 function preload() {
-  bgImage = loadImage("/img/bg.jpg");
-  boatImage = loadImage("/img/boat.png");
-  pirate = loadImage("/img/pirate.png");
-  fire = loadImage("/img/fire.gif");
+  bgImage = loadImage('/img/bg.jpg');
+  boatImage = loadImage('/img/boat.png');
+  pirate = loadImage('/img/pirate.png');
+  fire = loadImage('/img/fire.gif');
 }
 
 function setup() {
   let myCanvas = createCanvas(1024, 576);
-  myCanvas.parent("myContainer");
+  myCanvas.parent('myContainer');
   character = new Character();
 }
 
@@ -39,15 +40,15 @@ function draw() {
   background(bgImage);
   gameMode();
 
-  if (gameState == "START") {
+  if (gameState == 'START') {
     startGame();
   }
 
-  if (gameState == "GAMEON") {
+  if (gameState == 'GAMEON') {
     gameOn();
   }
 
-  if (gameState == "GAMEOVER") {
+  if (gameState == 'GAMEOVER') {
     gameOver();
     reset();
   }
@@ -81,7 +82,7 @@ function platformsDraw() {
 }
 
 function keyPressed() {
-  if (keyIsDown("38")) {
+  if (keyIsDown('38')) {
     if (jumps.length <= 2) {
       character.jump();
       jumps.push(1);
@@ -92,12 +93,12 @@ function keyPressed() {
 }
 
 function moveCharacter() {
-  if (keyIsDown("37")) {
+  if (keyIsDown('37')) {
     character.left();
     jumps = [];
   }
 
-  if (keyIsDown("39")) {
+  if (keyIsDown('39')) {
     character.right();
     jumps = [];
   }
@@ -109,7 +110,7 @@ function sideEnemiesDraw() {
     for (let i = 0; i < randomObjects(); i++) {
       let direction = Math.floor(Math.random() * 2);
       sideEnemies.push(
-        new SideEnemy(sideEnemyRandomYPosition[direction], direction)
+        new SideEnemy(sideEnemyRandomYPosition[direction], direction, levels)
       );
     }
   }
@@ -147,8 +148,9 @@ function randomObjects() {
 function topEnemiesDraw() {
   if (topEnemies.length === 0) {
     score++;
+    levels++;
     for (let i = 0; i < randomObjects(); i++) {
-      topEnemies.push(new TopEnemy());
+      topEnemies.push(new TopEnemy(levels));
     }
   }
 
