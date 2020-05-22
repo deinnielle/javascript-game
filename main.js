@@ -16,6 +16,7 @@ const distancePlatforms = 50;
 let score = 0;
 let jumps = [];
 let gameState = "START";
+let levels = 0;
 
 function preload() {
   bgImage = loadImage("/img/bg.jpg");
@@ -108,7 +109,7 @@ function sideEnemiesDraw() {
     for (let i = 0; i < randomObjects(); i++) {
       let direction = Math.floor(Math.random() * 2);
       sideEnemies.push(
-        new SideEnemy(sideEnemyRandomYPosition[direction], direction)
+        new SideEnemy(sideEnemyRandomYPosition[direction], direction, levels)
       );
     }
   }
@@ -146,8 +147,9 @@ function randomObjects() {
 function topEnemiesDraw() {
   if (topEnemies.length === 0) {
     score++;
+    levels++;
     for (let i = 0; i < randomObjects(); i++) {
-      topEnemies.push(new TopEnemy());
+      topEnemies.push(new TopEnemy(levels));
     }
   }
 

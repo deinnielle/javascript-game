@@ -1,10 +1,10 @@
 class SideEnemy {
-  constructor(x, direction) {
+  constructor(x, direction, levels) {
     this.r = 50;
     this.x = x;
     this.y = 500;
     this.v = 0;
-    this.rv = Math.random() * 2 + 1;
+    this.rv = Math.random() * 2 + 1 + levels * 0.1;
     this.direction = direction;
   }
 
