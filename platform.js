@@ -6,6 +6,6 @@ class Platform {
   }
 
   show() {
-    rect(this.x, this.y, this.r, this.r);
+    image(platformImg, this.x, this.y, this.r, this.r);
   }
 }

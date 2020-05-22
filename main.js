@@ -4,6 +4,7 @@ let bgImage;
 let boatImage;
 let pirate;
 let fire;
+let platformImg;
 let topEnemies = [];
 let sideEnemies = [];
 const sideEnemyRandomYPosition = [-50, 1074];
@@ -20,7 +21,8 @@ function preload() {
   bgImage = loadImage("/img/bg.jpg");
   boatImage = loadImage("/img/boat.png");
   pirate = loadImage("/img/pirate.png");
-  fire = loadImage("/img/fire.gif");
+  fire = loadImage("/img/attack.gif");
+  platformImg = loadImage("/img/brown_rock.png");
 }
 
 function setup() {
@@ -37,11 +39,8 @@ function setup() {
 
 function draw() {
   background(bgImage);
-  gameMode();
-
-  if (gameState == "START") {
-    startGame();
-  }
+  gameModals();
+  console.log(gameState);
 
   if (gameState == "GAMEON") {
     gameOn();
