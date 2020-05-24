@@ -22,17 +22,6 @@ function gameOver() {
   if (score - 2 > 0) {
     sessionStorage.setItem(Date.now(), score - 2);
   }
-  fill(255);
-  textAlign(CENTER);
-  textSize(30);
-  text("GAME OVER", width / 2, height / 2);
-  text("PRESS ENTER TO START", width / 2, height / 2 + 20);
-  let hightScore = highScore();
-  if (hightScore !== undefined) {
-    for (let i = 0; i < hightScore.length; i++) {
-      text(`${i}: ${hightScore[i]}`, width / 2, height / 2 + 40);
-    }
-  }
 }
 
 // function gameMode() {

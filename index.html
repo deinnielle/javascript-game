@@ -4,15 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
     <title>Document</title>
   </head>
   <body>
     <div class="modal flex">
-      <div class="modal__start flex">
-        <div class="modal__start__button flex">Start</div>
+      <div class="modal__start">
+        <h1 class="modal__gameOver__h1 flex">GAME OVER</h1>
+        <div class="flex">
+          <div class="modal__start__button button flex">Start</div>
+        </div>
       </div>
-      <div id="modal__gameOver" class="modal__gameOver__hidden flex">
-        <div class="modal__gameOver__button flex">Try again</div>
+      <div id="modal__gameOver" class="modal__gameOver__hidden">
+        <h1 class="modal__gameOver__h1 flex">GAME OVER</h1>
+          <div class="modal__gameOver__button button flex">Try again</div>
+          <div class="modal__gameOVer__score flex">
+            <div>
+              <p class="modal__gameOver__one"></p>
+              <p class="modal__gameOver__two"></p>
+              <p class="modal__gameOver__three"></p>
+            </div>
+          </div>
       </div>
     </div>
     <div id="myContainer"></div>

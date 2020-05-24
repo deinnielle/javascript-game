@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Pirata One", cursive;
+  color: white;
 }
 
 .flex {
@@ -28,12 +30,19 @@ body {
 .modal__start {
   width: 40%;
   height: 40%;
-  background-color: blue;
+}
+.button {
+  background-color: tomato;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+
+  font-size: 30px;
+}
+.modal__gameOver__h1 {
+  font-size: 100px;
 }
 .modal__start__button {
-  background-color: tomato;
-  width: 100px;
-  height: 40px;
 }
 
 .modal__gameOver__hidden {
@@ -42,11 +51,18 @@ body {
 .modal__gameOver {
   width: 40%;
   height: 40%;
-  background-color: blue;
 }
 
 .modal__gameOver__button {
+  margin: auto;
+}
+.modal__gameOVer__score {
+  width: 50%;
+  height: 50%;
   background-color: tomato;
-  width: 100px;
-  height: 40px;
+  margin: auto;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 50px;
+  font-size: 30px;
 }
