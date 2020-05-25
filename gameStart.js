@@ -13,8 +13,6 @@ function gameOn() {
 function gameOver() {
   gameState = "GAMEOVER";
   if (score > 0) {
-    console.log(score);
-
     sessionStorage.setItem(Date.now(), score);
   }
   score = 0;

@@ -1,6 +1,5 @@
 let character;
 let platform;
-let bgImage;
 let boatImageRight;
 let boatImageLeft;
 let pirate;
@@ -26,13 +25,9 @@ function preload() {
   boatImageRight = loadImage("/img/boat-right.png");
   boatImageLeft = loadImage("/img/boat-left.png");
   pirate = loadImage("/img/pirate.png");
-  fire = loadImage("/img/attack.gif");
   platformImg = loadImage("/img/brown_rock.png");
   bgImage = loadImage("/img/bg.jpg");
-  boatImage = loadImage("/img/boat.png");
-  pirate = loadImage("/img/pirate.png");
   fire = loadImage("/img/attack.gif");
-  platformImg = loadImage("/img/brown_rock.png");
   gem = loadImage("/img/gem.gif");
 }
 

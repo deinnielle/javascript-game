@@ -32,7 +32,6 @@ function endModal() {
 
   modalGameOver.classList.remove("modal__gameOver__hidden");
   modalGameOver.classList.add("modal__gameOver");
-  console.log(highscore.length !== 0);
 
   if (highscore.length !== 0) {
     document.querySelector(".modal__gameOver__one").innerText = `First: ${
