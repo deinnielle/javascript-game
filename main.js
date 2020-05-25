@@ -5,55 +5,82 @@ let boatImageRight;
 let boatImageLeft;
 let pirate;
 let fire;
+let gem;
 let platformImg;
 let topEnemies = [];
 let sideEnemies = [];
-const sideEnemyRandomYPosition = [-50, 1074];
 let platforms = [];
+let score = 0;
+let jumps = [];
+let gameState = "START";
+let levels = 0;
+let activeGem;
+const sideEnemyRandomYPosition = [-50, 1074];
 const platformRandomXPosition = [100, 300, 500, 700, 800, 900];
 const platformRandomYPosition = [400, 300, 200, 100];
 const distanceEnemies = 30;
-const distancePlatforms = 50;
-let score = 0;
-let jumps = [];
-let gameState = 'START';
-let levels = 0;
+const distancePlatforms = 43;
 
 function preload() {
-  bgImage = loadImage('/img/bg.jpg');
-  boatImageRight = loadImage('/img/boat-right.png');
-  boatImageLeft = loadImage('/img/boat-left.png');
-  pirate = loadImage('/img/pirate.png');
-  fire = loadImage('/img/attack.gif');
-  platformImg = loadImage('/img/brown_rock.png');
+  bgImage = loadImage("/img/bg.jpg");
+  boatImageRight = loadImage("/img/boat-right.png");
+  boatImageLeft = loadImage("/img/boat-left.png");
+  pirate = loadImage("/img/pirate.png");
+  fire = loadImage("/img/attack.gif");
+  platformImg = loadImage("/img/brown_rock.png");
+  bgImage = loadImage("/img/bg.jpg");
+  boatImage = loadImage("/img/boat.png");
+  pirate = loadImage("/img/pirate.png");
+  fire = loadImage("/img/attack.gif");
+  platformImg = loadImage("/img/brown_rock.png");
+  gem = loadImage("/img/gem.gif");
 }
 
 function setup() {
   let myCanvas = createCanvas(1024, 576);
-  myCanvas.parent('myContainer');
+  myCanvas.parent("myContainer");
   character = new Character();
 }
-
-// TODO
-// Style start and end screen
-// platform and fire images
-// levels
-// invert character
 
 function draw() {
   background(bgImage);
   gameModals();
-  console.log(gameState);
 
-  if (gameState == 'GAMEON') {
+  if (gameState == "GAMEON") {
     gameOn();
   }
 
-  if (gameState == 'GAMEOVER') {
+  if (gameState == "GAMEOVER") {
     gameOver();
     reset();
   }
 }
+
+///////////////////////// Move functions
+function keyPressed() {
+  if (keyIsDown("38")) {
+    if (jumps.length <= 2) {
+      character.jump();
+      jumps.push(1);
+    } else {
+      jumps = [];
+    }
+  }
+}
+
+function moveCharacter() {
+  if (keyIsDown("37")) {
+    character.left();
+    jumps = [];
+  }
+
+  if (keyIsDown("39")) {
+    character.right();
+    jumps = [];
+  }
+}
+
+///////////////////////// Platforms
 
 function platformsDraw() {
   if (platforms.length === 0) {
@@ -83,7 +110,7 @@ function platformsDraw() {
 }
 
 function keyPressed() {
-  if (keyIsDown('38')) {
+  if (keyIsDown("38")) {
     if (jumps.length <= 2) {
       character.jump();
       jumps.push(1);
@@ -94,12 +121,12 @@ function keyPressed() {
 }
 
 function moveCharacter() {
-  if (keyIsDown('37')) {
+  if (keyIsDown("37")) {
     character.left(boatImageLeft);
     jumps = [];
   }
 
-  if (keyIsDown('39')) {
+  if (keyIsDown("39")) {
     character.right(boatImageRight);
     jumps = [];
   }
@@ -107,7 +134,6 @@ function moveCharacter() {
 
 function sideEnemiesDraw() {
   if (sideEnemies.length === 0) {
-    score++;
     for (let i = 0; i < randomObjects(); i++) {
       let direction = Math.floor(Math.random() * 2);
       sideEnemies.push(
@@ -142,13 +168,8 @@ function sideEnemiesDraw() {
   }
 }
 
-function randomObjects() {
-  return Math.floor(Math.random() * 8 + 2);
-}
-
 function topEnemiesDraw() {
   if (topEnemies.length === 0) {
-    score++;
     levels++;
     for (let i = 0; i < randomObjects(); i++) {
       topEnemies.push(new TopEnemy(levels));
@@ -174,9 +195,48 @@ function topEnemiesDraw() {
   }
 }
 
+function randomObjects() {
+  return Math.floor(Math.random() * 8 + 2);
+}
+
+///////////////////////// Gem functions
+function randomGem() {
+  let x = 30 + Math.floor(Math.random() * 940);
+  let y = 200 + Math.floor(Math.random() * 310);
+
+  for (let i = 0; i < platforms.length; i++) {
+    if (
+      Math.abs(y - platforms[i].y) < distanceEnemies &&
+      Math.abs(x - platforms[i].x) < distanceEnemies
+    ) {
+      x = x + 50;
+      y = y + 50;
+    }
+  }
+
+  if (activeGem === undefined) {
+    activeGem = new Gem(x, y);
+  }
+}
+
+function gemTaken() {
+  randomGem();
+  if (activeGem !== undefined) {
+    activeGem.show();
+    if (
+      Math.abs(activeGem.y - character.y) < distanceEnemies &&
+      Math.abs(activeGem.x - character.x) < distanceEnemies
+    ) {
+      score++;
+      activeGem = undefined;
+      randomGem();
+    }
+  }
+}
+
 function highScore() {
+  let sessionStorageSorted = [];
   if (sessionStorage.length !== 0) {
-    let sessionStorageSorted = [];
     for (let i = 0; i < sessionStorage.length; i++) {
       sessionStorageSorted[i] = sessionStorage.getItem(sessionStorage.key(i));
     }
@@ -185,5 +245,7 @@ function highScore() {
         return b - a;
       })
       .splice(0, 3);
+  } else {
+    return sessionStorageSorted;
   }
 }
