@@ -24,5 +24,6 @@ function reset() {
   platforms = [];
   sideEnemies = [];
   topEnemies = [];
+  levels = 0;
   character.x = width / 2;
 }
