@@ -42,8 +42,6 @@ body {
 .modal__gameOver__h1 {
   font-size: 100px;
 }
-.modal__start__button {
-}
 
 .modal__gameOver__hidden {
   display: none;
@@ -65,4 +63,12 @@ body {
   padding: 20px;
   margin-top: 50px;
   font-size: 30px;
+}
+
+.score {
+  position: absolute;
+  font-size: 35px;
+  left: 10%;
+  top: 25%;
+  color: tomato;
 }
