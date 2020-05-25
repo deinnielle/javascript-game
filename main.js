@@ -1,7 +1,8 @@
 let character;
 let platform;
 let bgImage;
-let boatImage;
+let boatImageRight;
+let boatImageLeft;
 let pirate;
 let fire;
 let platformImg;
@@ -15,20 +16,21 @@ const distanceEnemies = 30;
 const distancePlatforms = 50;
 let score = 0;
 let jumps = [];
-let gameState = "START";
+let gameState = 'START';
 let levels = 0;
 
 function preload() {
-  bgImage = loadImage("/img/bg.jpg");
-  boatImage = loadImage("/img/boat.png");
-  pirate = loadImage("/img/pirate.png");
-  fire = loadImage("/img/attack.gif");
-  platformImg = loadImage("/img/brown_rock.png");
+  bgImage = loadImage('/img/bg.jpg');
+  boatImageRight = loadImage('/img/boat-right.png');
+  boatImageLeft = loadImage('/img/boat-left.png');
+  pirate = loadImage('/img/pirate.png');
+  fire = loadImage('/img/attack.gif');
+  platformImg = loadImage('/img/brown_rock.png');
 }
 
 function setup() {
   let myCanvas = createCanvas(1024, 576);
-  myCanvas.parent("myContainer");
+  myCanvas.parent('myContainer');
   character = new Character();
 }
 
@@ -43,11 +45,11 @@ function draw() {
   gameModals();
   console.log(gameState);
 
-  if (gameState == "GAMEON") {
+  if (gameState == 'GAMEON') {
     gameOn();
   }
 
-  if (gameState == "GAMEOVER") {
+  if (gameState == 'GAMEOVER') {
     gameOver();
     reset();
   }
@@ -81,7 +83,7 @@ function platformsDraw() {
 }
 
 function keyPressed() {
-  if (keyIsDown("38")) {
+  if (keyIsDown('38')) {
     if (jumps.length <= 2) {
       character.jump();
       jumps.push(1);
@@ -92,13 +94,13 @@ function keyPressed() {
 }
 
 function moveCharacter() {
-  if (keyIsDown("37")) {
-    character.left();
+  if (keyIsDown('37')) {
+    character.left(boatImageLeft);
     jumps = [];
   }
 
-  if (keyIsDown("39")) {
-    character.right();
+  if (keyIsDown('39')) {
+    character.right(boatImageRight);
     jumps = [];
   }
 }

@@ -5,17 +5,20 @@ class Character {
     this.y = height - this.r;
     this.vy = 0;
     this.gravity = 7;
+    this.boatImage = boatImageRight;
   }
 
   jump() {
     this.vy = -30;
   }
 
-  left() {
+  left(boatImage) {
+    this.boatImage = boatImage;
     this.x += -5;
   }
 
-  right() {
+  right(boatImage) {
+    this.boatImage = boatImage;
     this.x += 5;
   }
 
@@ -33,6 +36,6 @@ class Character {
   }
 
   show() {
-    image(boatImage, this.x, this.y, this.r, this.r);
+    image(this.boatImage, this.x, this.y, this.r, this.r);
   }
 }
